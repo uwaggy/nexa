@@ -15,16 +15,17 @@ import air from './assets/air.png'
 import star from './assets/Star 1.png'
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
-import React, { useState, ChangeEvent } from 'react';
-
+import React, { ChangeEvent, useState ,Dispatch, SetStateAction } from 'react';
 import './App.css'
 
+
+
 const Add: React.FC = () => {
-  const [userInput1, setUserInput1] = useState(0);
-  const [userInput2, setUserInput2] = useState(0);
-  const [userInput3, setUserInput3] = useState(0);
-  const [userInput4, setUserInput4] = useState(0);
-  const [userInput5, setUserInput5] = useState(0);
+  const [userInput1, setUserInput1] = useState<number>(0);
+  const [userInput2, setUserInput2] = useState<number>(0);
+  const [userInput3, setUserInput3] = useState<number>(0);
+  const [userInput4, setUserInput4] = useState<number>(0);
+  const [userInput5, setUserInput5] = useState<number>(0);
   const [userInput6, setUserInput6] = useState("");
   const [userInput7, setUserInput7] = useState("");
   const [userInput8, setUserInput8] = useState("");
@@ -33,24 +34,27 @@ const Add: React.FC = () => {
   const [userInput11, setUserInput11] = useState("");
   const [userInput12, setUserInput12] = useState("");
 
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>, setInput: Dispatch<SetStateAction<number>>) => {
+    setInput(Number(event.target.value)); 
+  };
+
   const handleInputChange1 = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserInput1(event.target.value);
+    handleInputChange(event, setUserInput1);
   };
-
+  
   const handleInputChange2 = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserInput2(event.target.value);
+    handleInputChange(event, setUserInput2);
   };
+ const handleInputChange3 = (event: ChangeEvent<HTMLInputElement>) => {
+  handleInputChange(event, setUserInput3);
+};
 
-  const handleInputChange3 = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserInput3(event.target.value);
-  };
-
-  const handleInputChange4 = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserInput4(event.target.value);
-  };
-  const handleInputChange5 = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserInput5(event.target.value);
-  };
+const handleInputChange4 = (event: ChangeEvent<HTMLInputElement>) => {
+  handleInputChange(event, setUserInput4);
+}; 
+const handleInputChange5 = (event: ChangeEvent<HTMLInputElement>) => {
+  handleInputChange(event, setUserInput5);
+};
   const handleInputChange6 = (event: ChangeEvent<HTMLInputElement>) => {
     setUserInput6(event.target.value);
   };
@@ -73,32 +77,34 @@ const Add: React.FC = () => {
     setUserInput12(event.target.value);
   };
 
-  const handleSunflowerClick = (sunflowerId) => {
+  const handleSunflowerClick = (sunflowerId: string) => {
     setSunflowerStates((prevStates) => {
       const currentClickedState = prevStates[sunflowerId];
       const newClickedState = !currentClickedState;
-      const increment = newClickedState ? 1 : -1; // Increment if clicked, decrement if unclicked
+      const increment = newClickedState ? 1 : -1; 
       setUserInput1((prevInput) => prevInput + increment);
       return {
         ...prevStates,
-        [sunflowerId]: newClickedState // Update the clicked state
+        [sunflowerId]: newClickedState 
       };
     });
   };
   
-  const handlebirthClick = (birthId) => {
+  const handlebirthClick = (birthId: string) => {
     setbirthStates((prevStates) => {
       const currentClickedState = prevStates[birthId];
       const newClickedState = !currentClickedState;
-      const increment = newClickedState ? 1 : -1; // Increment if clicked, decrement if unclicked
+      const increment = newClickedState ? 1 : -1; 
       setUserInput2((prevInput) => prevInput + increment);
       return {
         ...prevStates,
-        [birthId]: newClickedState // Update the clicked state
+        [birthId]: newClickedState 
       };
     });
   };
-  const handleairClick = (airId) => {
+  
+  
+  const handleairClick = (airId: string) => {
     setairStates((prevStates) => {
       const currentClickedState = prevStates[airId];
       const newClickedState = !currentClickedState;
@@ -110,7 +116,7 @@ const Add: React.FC = () => {
       };
     });
   };
-  const handlebus2Click = (bus2Id) => {
+  const handlebus2Click = (bus2Id: string) => {
     setbus2States((prevStates) => {
       const currentClickedState = prevStates[bus2Id];
       const newClickedState = !currentClickedState;
@@ -122,37 +128,58 @@ const Add: React.FC = () => {
       };
     });
   };
-  const handlemonkeyClick = (monkeyId) => {
+  const handlemonkeyClick = (monkeyId: string) => {
     setmonkeyStates((prevStates) => {
       const currentClickedState = prevStates[monkeyId];
       const newClickedState = !currentClickedState;
-      const increment = newClickedState ? 1 : -1; // Increment if clicked, decrement if unclicked
+      const increment = newClickedState ? 1 : -1;
       setUserInput5((prevInput) => prevInput + increment);
       return {
         ...prevStates,
-        [monkeyId]: newClickedState // Update the clicked state
+        [monkeyId]: newClickedState
       };
     });
   };
-  const [sunflowerStates, setSunflowerStates] = useState({
+  
+  interface State {
+    [key: string]: boolean;
+    first: boolean;
+    second: boolean;
+    third: boolean;
+    fourth: boolean;
+    fifth: boolean;
+    sixth: boolean;
+    seventh: boolean;
+    eighth: boolean;
+    ninth: boolean;
+    tenth: boolean;
+    eleventh: boolean;
+    twelfth: boolean;
+    thirteenth: boolean;
+    fourteenth: boolean;
+    fifteenth: boolean;
+    sixteenth: boolean;
+}
+const [sunflowerStates, setSunflowerStates] = useState<State>({
+  first: false,
+  second: false,
+  third: false,
+  fourth: false,
+  fifth: false,
+  sixth: false,
+  seventh: false,
+  eighth: false,
+  ninth: false,
+  tenth: false,
+  eleventh: false,
+  twelfth: false,
+  thirteenth: false,
+  fourteenth: false,
+  fifteenth: false,
+  sixteenth: false
+});
 
-    first: false,
-    second: false,
-    third: false,
-    fourth: false,
-    fifth: false,
-    sixth: false,
-    seventh: false,
-    eighth: false,
-    ninth: false,
-    tenth: false,
-    eleventh: false,
-    twelfth: false,
-    thirteenth: false,
-    fourteenth: false,
-    fifteenth: false
-  });
-  const [birthStates, setbirthStates] = useState({
+  const [birthStates, setbirthStates] = useState<State>({
     first: false,
     second: false,
     third: false,
@@ -171,7 +198,7 @@ const Add: React.FC = () => {
     sixteenth: false
   });
 
-  const [airStates, setairStates] = useState({
+  const [airStates, setairStates] = useState<State>({
     first: false,
     second: false,
     third: false,
@@ -189,7 +216,7 @@ const Add: React.FC = () => {
     fifteenth: false,
     sixteenth: false
   });
-  const [bus2States, setbus2States] = useState({
+  const [bus2States, setbus2States] = useState<State>({
     first: false,
     second: false,
     third: false,
@@ -207,7 +234,7 @@ const Add: React.FC = () => {
     fifteenth: false,
     sixteenth: false
   });
-  const [monkeyStates, setmonkeyStates] = useState({
+  const [monkeyStates, setmonkeyStates] = useState<State>({
     first: false,
     second: false,
     third: false,
@@ -225,19 +252,20 @@ const Add: React.FC = () => {
     fifteenth: false,
     sixteenth: false
   });
-   const handleDragStart = (e) => {
-    e.dataTransfer.setData('text/plain', e.target.innerText);
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;  e.dataTransfer.setData('text/plain', target.innerText);
   };
+  
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('text/plain');
-    e.target.innerText = data;
-  };
+  // const handleDrop = (e) => {
+  //   e.preventDefault();
+  //   const data = e.dataTransfer.getData('text/plain');
+  //   e.target.innerText = data;
+  // };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+  // const handleDragOver = (e) => {
+  //   e.preventDefault();
+  // };
   
 
   return (
@@ -251,7 +279,8 @@ const Add: React.FC = () => {
           <div className='border-cyan-600 border-l h-6 border-2'></div>
           <p className='font-roboto' >Search</p>
         </div>
-        <div className={`min-h-full ${open ? 'visible' : 'invisible'} md:visible invisible`}>
+       <div className={`min-h-full ${open() ? 'visible' : 'invisible'} md:visible invisible`}>
+
           <div className='flex gap-12 '>
             <Link to={'/'}> <div className='text-slate-500'>Home</div></Link>
             <div className='font-roboto'>Courses</div>

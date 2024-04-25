@@ -19,7 +19,6 @@ const Subtract: React.FC = () => {
   const handleInputChange1 = (event: ChangeEvent<HTMLInputElement>) => {
     setUserInput1(event.target.value);
   };
-
   const handleInputChange2 = (event: ChangeEvent<HTMLInputElement>) => {
     setUserInput2(event.target.value);
   };
@@ -37,21 +36,22 @@ const Subtract: React.FC = () => {
   const handleInputChange6 = (event: ChangeEvent<HTMLInputElement>) => {
     setUserInput6(event.target.value);
   };
-  const handlesun1Click = (sun1Id) => {
+  const handlesun1Click = (sun1Id: string) => {
     setsun1States((prevStates) => {
-      const currentClickedState = prevStates[sun1Id];
+      const currentClickedState = prevStates[sun1Id as keyof typeof prevStates];
       const newClickedState = !currentClickedState;
-      // const increment = newClickedState ? 1 : -1; // Increment if clicked, decrement if unclicked
-      // setUserInput1((prevInput) => prevInput + increment);
+      const increment = newClickedState ? 1 : -1; 
+      setUserInput2((prevInput) => prevInput + increment);
       return {
         ...prevStates,
-        [sun1Id]: newClickedState // Update the clicked state
+        [sun1Id]: newClickedState,
       };
     });
   };
-  const handleflyClick = (flyId) => {
+  
+  const handleflyClick = (flyId:string) => {
     setflyStates((prevStates) => {
-      const currentClickedState = prevStates[flyId];
+      const currentClickedState = prevStates[flyId as keyof typeof prevStates];
       const newClickedState = !currentClickedState;
       // const increment = newClickedState ? 1 : -1; // Increment if clicked, decrement if unclicked
       // setUserInput2((prevInput) => prevInput + increment);
@@ -61,6 +61,25 @@ const Subtract: React.FC = () => {
       };
     });
   };
+//   interface State {
+//     [key: string]: boolean;
+//     first: boolean;
+//     second: boolean;
+//     third: boolean;
+//     fourth: boolean;
+//     fifth: boolean;
+//     sixth: boolean;
+//     seventh: boolean;
+//     eighth: boolean;
+//     ninth: boolean;
+//     tenth: boolean;
+//     eleventh: boolean;
+//     twelfth: boolean;
+//     thirteenth: boolean;
+//     fourteenth: boolean;
+//     fifteenth: boolean;
+//     sixteenth: boolean;
+// }
   const [sun1States, setsun1States] = useState({
     first: false,
     second: false,
@@ -130,19 +149,20 @@ const Subtract: React.FC = () => {
     thirtyFirst: false,
     thirtySecond: false,
   });
-  const handleDragStart = (e) => {
-    e.dataTransfer.setData('text/plain', e.target.innerText);
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    e.dataTransfer.setData('text/plain', target.innerText);
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('text/plain');
-    e.target.innerText = data;
-  };
+  // const handleDrop = (e) => {
+  //   e.preventDefault();
+  //   const data = e.dataTransfer.getData('text/plain');
+  //   e.target.innerText = data;
+  // };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+  // const handleDragOver = (e) => {
+  //   e.preventDefault();
+  // };
   return (
     <div className='overflow-x-hidden '>
       <div className='flex items-center space-x-4 md:gap-48 gap-10 cursor-pointer font-bold mt-2 '>
@@ -193,43 +213,14 @@ const Subtract: React.FC = () => {
       </div>
       <div className='flex md:gap-4 gap-5 font-roboto md:ml-40 mt-8 w- '>
         <p className='mt-8 ml-4 text-2xl'>-</p>
-        {/* <div className='flex flex-col md:h-16 h-12 mt-5 w-20 md:w-36  bg-cyan-400 rounded-md'>
-                    <div className='md:ml-3 flex md:gap-1 justify-center'>
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                    </div>
-                    <div className='flex justify-center md:gap-1'>
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                    </div>
-                </div> */}
-
-        {/* <div className='flex flex-col h-12 md:h-16 mt-5 md:ml-5 md:w-32 w-24  bg-cyan-400 rounded-md'>
-                    <div className='md:ml-3 flex gap-1'>
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                    </div>
-                    <div className='flex md:ml-3  gap-1'>
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                        <img className='md:h-6 h-4 mt-1 w-5 md:w-6' src={sun} alt='flower' />
-                    </div>
-                </div> */}
-        {/* <p className='mt-8 ml-4 text-2xl'>=</p> */}
         <div className='bg-gray-300 text-center h-32 w-28 rounded-lg'>
           <div className='ml-2 mt-2'>
             <div className='flex'>
-              <img
+            <img
                 className='h-6 mt-1 w-6 cursor-pointer'
-                src={sun1States.first ? sun : sun1}
+                src={sun1States.second ? sun : sun1}
                 alt='flower'
-                onClick={() => handlesun1Click('first')}
+                onClick={() => handlesun1Click('second')}
               />
               <img
                 className='h-6 mt-1 w-6 cursor-pointer'
