@@ -44,19 +44,19 @@ const Practice = () => {
       const handleInputChange9 = (event: ChangeEvent<HTMLInputElement>) => {
         setUserInput9(event.target.value);
       };
-      const handleDragStart = (e) => {
-        e.dataTransfer.setData('text/plain', e.target.innerText);
+      const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+        const target = e.target as HTMLDivElement;  e.dataTransfer.setData('text/plain', target.innerText);
       };
+      
+      // const handleDrop = (e) => {
+      //   e.preventDefault();
+      //   const data = e.dataTransfer.getData('text/plain');
+      //   e.target.innerText = data;
+      // };
     
-      const handleDrop = (e) => {
-        e.preventDefault();
-        const data = e.dataTransfer.getData('text/plain');
-        e.target.innerText = data;
-      };
-    
-      const handleDragOver = (e) => {
-        e.preventDefault();
-      };
+      // const handleDragOver = (e) => {
+      //   e.preventDefault();
+      // };
     
     return (
         <div className='overflow-x-hidden '>
