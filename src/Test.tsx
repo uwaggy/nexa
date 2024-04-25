@@ -47,19 +47,20 @@ const Test = () => {
       const handleInputChange10 = (event: ChangeEvent<HTMLInputElement>) => {
         setUserInput10(event.target.value);
       };
-      const handleDragStart = (e) => {
-        e.dataTransfer.setData('text/plain', e.target.innerText);
+      const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+        const target = e.target as HTMLDivElement;
+        e.dataTransfer.setData('text/plain', target.innerText);
       };
     
-      const handleDrop = (e) => {
-        e.preventDefault();
-        const data = e.dataTransfer.getData('text/plain');
-        e.target.innerText = data;
-      };
+      // const handleDrop = (e) => {
+      //   e.preventDefault();
+      //   const data = e.dataTransfer.getData('text/plain');
+      //   e.target.innerText = data;
+      // };
     
-      const handleDragOver = (e) => {
-        e.preventDefault();
-      };
+      // const handleDragOver = (e) => {
+      //   e.preventDefault();
+      // };
     return (
         <div className='overflow-x-hidden '>
             <div className='flex items-center space-x-4 md:gap-48 gap-10 cursor-pointer font-bold mt-2 '>
